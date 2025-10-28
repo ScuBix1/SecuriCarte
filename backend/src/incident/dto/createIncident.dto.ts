@@ -14,5 +14,5 @@ export class CreateIncidentDto {
 
   @IsNotEmpty({ message: errors.INCIDENT_DATE_REQUIRED })
   @IsDateString()
-  date: Date;
+  date: string;
 }

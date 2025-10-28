@@ -1,0 +1,4 @@
+{
+  "JWT_REQUIRED": "JWT requis",
+  "JWT_INVALID_EXPIRED": "JWT invalide ou expiré"
+}
