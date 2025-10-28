@@ -3,5 +3,7 @@ import { CreateIncidentDto } from './dto/createIncident.dto';
 
 @Injectable()
 export class IncidentService {
-  async createIncident(dto: CreateIncidentDto, userId: string) {}
+  async createIncident(dto: CreateIncidentDto, userId: string) {
+    console.log('dto ====>', dto, 'userId ======>', userId);
+  }
 }
