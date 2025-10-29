@@ -13,6 +13,6 @@ export class CreateIncidentDto {
   description: string;
 
   @IsNotEmpty({ message: errors.INCIDENT_DATE_REQUIRED })
-  @IsDateString()
+  @IsDateString({}, { message: errors.DATE_FORMAT })
   date: string;
 }

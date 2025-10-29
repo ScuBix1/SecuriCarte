@@ -1,6 +1,8 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { type Response } from 'express';
 import { AuthService } from './auth.service';
+import * as auth from './messages/auth.json';
+import * as jwt from 'jsonwebtoken';
 
 @Controller('auth')
 export class AuthController {
@@ -17,14 +19,23 @@ export class AuthController {
     @Res() res: Response,
   ) {
     const session = await this.authService.login(body.email, body.password);
+    console.log(session);
 
-    res.cookie('access_token', session.access_token, {
+    const token = jwt.sign(
+      { id: session.user.id, email: body.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' },
+    );
+
+    res.cookie('access_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24,
     });
 
-    return res.send({ message: 'Connecté', user: session.user });
+    return res.send({
+      message: auth.connected,
+    });
   }
 }

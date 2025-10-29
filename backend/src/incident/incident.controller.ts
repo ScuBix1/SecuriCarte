@@ -39,17 +39,11 @@ export class IncidentController {
   ) {
     const userId = req.user.id;
     const incident = await this.incidentService.getIncidentById(dto.id);
-    console.log(incident);
 
     if (!incident) throw new NotFoundException(errors.INCIDENT_NOT_FOUND);
     if (incident.user_id !== userId)
       throw new ForbiddenException(errors.INCIDENT_FORBIDDEN);
 
     return this.incidentService.updateIncidentData(dto.id, dto);
-  }
-
-  @Post('token')
-  generateToken(@Body() payload: { id: string; email: string }): string {
-    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   }
 }

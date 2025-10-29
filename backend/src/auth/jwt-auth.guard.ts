@@ -13,14 +13,12 @@ export class JwtAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest<AuthenticatedRequest>();
     const token = req.cookies?.access_token;
-    console.log('token', token, 'req.cookies', req);
 
     if (!token) {
       throw new UnauthorizedException(errors.JWT_REQUIRED);
     }
 
     try {
-      console.log('JWT', process.env.JWT_SECRET);
       const secret = process.env.JWT_SECRET;
       const decoded = jwt.verify(token, secret) as {
         id: string;
