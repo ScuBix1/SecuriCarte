@@ -1,8 +1,8 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { type Response } from 'express';
+import * as jwt from 'jsonwebtoken';
 import { AuthService } from './auth.service';
 import * as auth from './messages/auth.json';
-import * as jwt from 'jsonwebtoken';
 
 @Controller('auth')
 export class AuthController {
@@ -19,7 +19,6 @@ export class AuthController {
     @Res() res: Response,
   ) {
     const session = await this.authService.login(body.email, body.password);
-    console.log(session);
 
     const token = jwt.sign(
       { id: session.user.id, email: body.email },

@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   ForbiddenException,
+  Get,
   NotFoundException,
   Patch,
   Post,
@@ -20,6 +21,19 @@ import * as errors from './messages/errors.json';
 @Controller('incident')
 export class IncidentController {
   constructor(private readonly incidentService: IncidentService) {}
+
+  @Get('all')
+  async getAllIncidents() {
+    return this.incidentService.getAllIncidents();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  async getUserIncidents(@Req() req: AuthenticatedRequest) {
+    const userId = req.user.id;
+
+    return this.incidentService.getUserIncidents(userId);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post()

@@ -46,4 +46,27 @@ export class IncidentService {
 
     return { message: incident.deleted };
   }
+
+  async getAllIncidents() {
+    const incidents = await this.incidentRepository.find({
+      order: { created_at: 'DESC' },
+    });
+
+    return incidents.map(({ user_id, ...incident }) => ({
+      ...incident,
+      location: JSON.parse(incident.location),
+    }));
+  }
+
+  async getUserIncidents(userId: string) {
+    const incidents = await this.incidentRepository.find({
+      where: { user_id: userId },
+      order: { created_at: 'DESC' },
+    });
+
+    return incidents.map(({ user_id, ...incident }) => ({
+      ...incident,
+      location: JSON.parse(incident.location),
+    }));
+  }
 }
