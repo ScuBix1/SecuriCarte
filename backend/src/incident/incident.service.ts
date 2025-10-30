@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateIncidentDto } from './dto/createIncident.dto';
 import { UpdateIncidentDto } from './dto/updateIncident.dto';
 import { Incident } from './incident.entity';
+import * as incident from './messages/incident.json';
 
 @Injectable()
 export class IncidentService {
@@ -26,11 +27,10 @@ export class IncidentService {
     return await this.incidentRepository.save(incident);
   }
 
-  async updateIncidentData(
-    id: number,
-    dto: UpdateIncidentDto,
-  ): Promise<Incident | null> {
-    const incident = await this.incidentRepository.findOne({ where: { id } });
+  async updateIncidentData(dto: UpdateIncidentDto): Promise<Incident | null> {
+    const incident = await this.incidentRepository.findOne({
+      where: { id: dto.id },
+    });
     if (!incident) return null;
 
     Object.assign(incident, dto);
@@ -39,5 +39,11 @@ export class IncidentService {
     }
 
     return await this.incidentRepository.save(incident);
+  }
+
+  async deleteIncident(id: number): Promise<{ message: string }> {
+    await this.incidentRepository.delete(id);
+
+    return { message: incident.deleted };
   }
 }

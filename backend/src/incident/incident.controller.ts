@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   ForbiddenException,
   NotFoundException,
   Patch,
@@ -8,10 +9,10 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import * as jwt from 'jsonwebtoken';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { type AuthenticatedRequest } from 'src/common/types/authenticated-request';
 import { CreateIncidentDto } from './dto/createIncident.dto';
+import { DeleteIncidentDto } from './dto/deleteIncident.dto';
 import { UpdateIncidentDto } from './dto/updateIncident.dto';
 import { IncidentService } from './incident.service';
 import * as errors from './messages/errors.json';
@@ -44,6 +45,22 @@ export class IncidentController {
     if (incident.user_id !== userId)
       throw new ForbiddenException(errors.INCIDENT_FORBIDDEN);
 
-    return this.incidentService.updateIncidentData(dto.id, dto);
+    return this.incidentService.updateIncidentData(dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete()
+  async deleteIncident(
+    @Body() dto: DeleteIncidentDto,
+    @Req() req: AuthenticatedRequest,
+  ) {
+    const userId = req.user.id;
+    const incident = await this.incidentService.getIncidentById(dto.id);
+
+    if (!incident) throw new NotFoundException(errors.INCIDENT_NOT_FOUND);
+    if (incident.user_id !== userId)
+      throw new ForbiddenException(errors.INCIDENT_FORBIDDEN);
+
+    return this.incidentService.deleteIncident(incident.id);
   }
 }
