@@ -3,12 +3,13 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { IncidentModule } from './incident/incident.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
@@ -17,6 +18,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
     }),
     IncidentModule,
     SubscriptionModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
