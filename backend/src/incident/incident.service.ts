@@ -52,9 +52,12 @@ export class IncidentService {
       order: { created_at: 'DESC' },
     });
 
-    return incidents.map(({ user_id, ...incident }) => ({
-      ...incident,
+    return incidents.map((incident) => ({
+      type: incident.type,
       location: JSON.parse(incident.location),
+      description: incident.description,
+      date: incident.date,
+      created_at: incident.created_at,
     }));
   }
 
@@ -64,9 +67,12 @@ export class IncidentService {
       order: { created_at: 'DESC' },
     });
 
-    return incidents.map(({ user_id, ...incident }) => ({
-      ...incident,
+    return incidents.map((incident) => ({
+      type: incident.type,
       location: JSON.parse(incident.location),
+      description: incident.description,
+      date: incident.date,
+      created_at: incident.created_at,
     }));
   }
 }
