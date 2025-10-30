@@ -10,8 +10,8 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { type AuthenticatedRequest } from 'src/common/types/authenticated-request';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { type AuthenticatedRequest } from '../common/types/authenticated-request';
 import { CreateIncidentDto } from './dto/createIncident.dto';
 import { DeleteIncidentDto } from './dto/deleteIncident.dto';
 import { UpdateIncidentDto } from './dto/updateIncident.dto';
