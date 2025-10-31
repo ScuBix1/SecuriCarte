@@ -11,8 +11,8 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "ES2022",
+    "importHelpers": false,
+    "target": "esnext",
     "module": "preserve"
   },
   "angularCompilerOptions": {
