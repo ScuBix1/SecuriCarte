@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { Login } from './features/auth/login/login';
+import { Auth } from './features/auth/auth';
 
 export const routes: Routes = [
   {
     path: 'auth/login',
-    component: Login,
+    component: Auth,
   },
 ];

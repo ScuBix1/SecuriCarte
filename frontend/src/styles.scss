@@ -6,6 +6,15 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+:root{
+  --common-wrapper: 30px;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
 html {
   @include mat.theme((
     color: (
@@ -32,6 +41,7 @@ body {
 
   // Reset the user agent margin.
   margin: 0;
+  padding-inline: var(--common-wrapper);
 }
 /* You can add global styles to this file, and also import other style files */
 

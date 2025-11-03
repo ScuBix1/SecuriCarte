@@ -1,4 +1,33 @@
-<mat-form-field>
-  <mat-label>Input</mat-label>
-  <input type="password" matInput>
-</mat-form-field>
+<section class="login">
+  <div class="logo">
+    <img src="favicon.ico" alt="Logo SécuriCarte" aria-hidden="true">
+    <h1>SécuriCarte</h1>
+  </div>
+
+  <div class="title">
+    <h2>Bienvenue</h2>
+    <p>Connectez-vous</p>
+  </div>
+
+  <div class="form-container">
+    <div class="form-login">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field class="example-form-field">
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
+        <button matSuffix mat-icon-button aria-label="Show/Hide password" (click)="hide = !hide">
+          <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <a href="https://www.google.com/" target="_blank">Mot de passe oublié ?</a>
+
+  </div>
+
+  <app-actions />
+
+</section>
