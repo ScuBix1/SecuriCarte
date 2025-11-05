@@ -1,7 +1,6 @@
-.actions-container{
+.actions-container {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  max-width: 280px;
-  width: 100%;
+  min-width: 240px;
 }

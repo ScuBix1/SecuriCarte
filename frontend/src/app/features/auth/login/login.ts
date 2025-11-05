@@ -24,4 +24,5 @@ import { Actions } from '../actions/actions';
 export class Login {
   password: string = '';
   hide: boolean = true;
+  email: string = '';
 }

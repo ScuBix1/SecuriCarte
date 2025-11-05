@@ -13,11 +13,11 @@
     <div class="form-login">
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="email" name="email" required>
       </mat-form-field>
       <mat-form-field class="example-form-field">
-        <mat-label>Password</mat-label>
-        <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'" required>
         <button matSuffix mat-icon-button aria-label="Show/Hide password" (click)="hide = !hide">
           <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
         </button>

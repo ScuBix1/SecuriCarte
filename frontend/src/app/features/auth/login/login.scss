@@ -1,66 +1,62 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 
+  .logo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
 
-    .login{
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      flex-basis: 49%;
-
-      .logo{
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        align-items: center;
-
-        img{
-          width: 50px;
-          height: 50px;
-        }
-      }
-
-      .title{
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        align-items: center;
-      }
-
-    .form-container{
-      display: flex;
-      flex-direction: column;
-      position: relative;
-
-      .form-login{
-        display: flex;
-        flex-direction: column;
-
-        gap: 5px;
-        align-items: center;
-
-        mat-form-field{
-            max-width: 280px;
-            width: 100%;
-        }
-      }
-
-      a{
-        color: var(--mat-sys-primary);
-        font-size: 12px;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        transform: translateY(30%);
-        opacity: 0.7;
-        transition: all;
-        transition-duration: 0.3ms;
-      }
-
-      a:hover{
-        opacity: 1;
-      }
+    img {
+      width: 50px;
+      height: 50px;
     }
   }
 
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .form-login {
+      display: flex;
+      flex-direction: column;
+
+      gap: 5px;
+      align-items: center;
+
+      mat-form-field {
+        max-width: 280px;
+        width: 100%;
+      }
+    }
+
+    a {
+      color: var(--mat-sys-primary);
+      font-size: 12px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      transform: translateY(30%);
+      opacity: 0.7;
+      transition: all;
+      transition-duration: 0.3ms;
+    }
+
+    a:hover {
+      opacity: 1;
+    }
+  }
+}

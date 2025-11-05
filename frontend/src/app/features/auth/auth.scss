@@ -1,21 +1,30 @@
-.auth{
+.auth {
   min-height: 100dvh;
   display: flex;
-  justify-content: center;
-  align-items: stretch;
+  width: 100%;
 
-  .left-side{
-      display: none;
+  .left-side {
+    display: none;
   }
 
   @media (min-width: 767px) {
-    .left-side{
-      display: flex;
-      width: 100%;
+    .left-side {
+      display: block;
       flex-basis: 49%;
+      min-height: 100dvh;
       background-image: url('/assets/images/illustration-auth.jpg');
       background-size: cover;
       margin: 0 var(--common-wrapper) 0 calc(-1 * var(--common-wrapper));
+    }
+  }
+
+  .right-side {
+    flex-basis: 100%;
+  }
+
+  @media (min-width: 767px) {
+    .right-side {
+      flex-basis: 49%;
     }
   }
 }
