@@ -1,4 +1,4 @@
-<section class="login">
+<form class="login" (ngSubmit)="submit()">
   <div class="logo">
     <img src="favicon.ico" alt="Logo SécuriCarte" aria-hidden="true">
     <h1>SécuriCarte</h1>
@@ -13,21 +13,23 @@
     <div class="form-login">
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="email" name="email" required>
+        <input matInput name="email" [(ngModel)]="loginModel().email" required />
       </mat-form-field>
-      <mat-form-field class="example-form-field">
+
+      <mat-form-field>
         <mat-label>Mot de passe</mat-label>
-        <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'" required>
-        <button matSuffix mat-icon-button aria-label="Show/Hide password" (click)="hide = !hide">
+        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="loginModel().password" name="password"
+          required />
+        <button matSuffix mat-icon-button type="button" aria-label="Show/Hide password" (click)="hide = !hide">
           <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
         </button>
       </mat-form-field>
     </div>
 
-    <a href="https://www.google.com/" target="_blank">Mot de passe oublié ?</a>
+    <div *ngIf="errorMessage() as msg" class="error">{{ msg }}</div>
 
+    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
   </div>
 
-  <app-actions />
-
-</section>
+  <app-actions></app-actions>
+</form>
