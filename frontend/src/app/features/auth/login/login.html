@@ -31,5 +31,5 @@
     <a href="#" class="forgot-password">Mot de passe oublié ?</a>
   </div>
 
-  <app-actions></app-actions>
+  <app-actions mode="login" (toggle)="switchToRegister.emit()" />
 </form>

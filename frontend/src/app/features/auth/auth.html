@@ -3,6 +3,10 @@
   </section>
 
   <section class="right-side">
-    <app-login />
+    @if (showLogin()) {
+    <app-login (switchToRegister)="toggleView()" />
+    } @else {
+    <app-register (switchToLogin)="toggleView()" />
+    }
   </section>
 </div>

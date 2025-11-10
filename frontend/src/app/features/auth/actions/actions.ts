@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -7,4 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './actions.html',
   styleUrl: './actions.scss',
 })
-export class Actions {}
+export class Actions {
+  @Input() mode: 'login' | 'register' = 'login';
+
+  @Output() toggle = new EventEmitter<void>();
+}

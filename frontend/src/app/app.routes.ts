@@ -3,7 +3,7 @@ import { Auth } from './features/auth/auth';
 
 export const routes: Routes = [
   {
-    path: 'auth/login',
+    path: 'auth',
     component: Auth,
   },
 ];

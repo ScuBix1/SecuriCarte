@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, EventEmitter, Output, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,6 +29,8 @@ export interface LoginFormModel {
   styleUrl: './login.scss',
 })
 export class Login {
+  @Output() switchToRegister = new EventEmitter<void>();
+
   hide = true;
   loginModel = signal<{ email: string; password: string }>({ email: '', password: '' });
   errorMessage = signal<string | null>(null);
