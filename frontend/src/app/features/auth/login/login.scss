@@ -23,12 +23,14 @@
     flex-direction: column;
     gap: 2px;
     align-items: center;
+    text-align: center;
   }
 
   .form-container {
     display: flex;
     flex-direction: column;
     position: relative;
+    text-align: center;
 
     .form-login {
       display: flex;

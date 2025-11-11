@@ -28,7 +28,7 @@
 
     <div *ngIf="errorMessage() as msg" class="error">{{ msg }}</div>
 
-    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+    <a href="/auth/forgot-password" class="forgot-password">Mot de passe oublié ?</a>
   </div>
 
   <app-actions mode="login" (toggle)="switchToRegister.emit()" />

@@ -54,7 +54,7 @@ export class Register {
 
     this.authService.register(email, password).subscribe({
       next: () => {
-        this.successMessage.set('Compte créé avec succès !');
+        this.successMessage.set('Veuillez vérifier votre compte pour vous connecter !');
         this.errorMessage.set(null);
       },
       error: (err: unknown) => {
