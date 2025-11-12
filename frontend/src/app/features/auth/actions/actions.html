@@ -1,0 +1,9 @@
+<div class="actions-container">
+  @if (mode === 'login'){
+  <button matButton="filled" type="submit">Se connecter</button>
+  <button matButton="tonal" type="button" (click)="toggle.emit()">S'inscrire</button>
+  } @else {
+  <button matButton="filled" type="submit">S'inscrire</button>
+  <button matButton="tonal" type="button" (click)="toggle.emit()">Se connecter</button>
+  }
+</div>

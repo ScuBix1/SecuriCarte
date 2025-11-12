@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { supabase } from '../supabase/supabase.client';
+import auth from './messages/auth.json';
 
 @Injectable()
 export class AuthService {
@@ -25,5 +26,32 @@ export class AuthService {
     if (error) throw new BadRequestException(error.message);
 
     return data.user;
+  }
+
+  async sendPasswordReset(email: string) {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'http://localhost:4200/auth/reset-password',
+    });
+
+    if (error) throw new Error(error.message);
+    return { message: auth.emailResetSent };
+  }
+
+  async resetPassword(access_token: string, new_password: string) {
+    const { data, error: userError } =
+      await supabase.auth.getUser(access_token);
+    if (userError || !data?.user) {
+      throw new BadRequestException('Token invalide ou expiré.');
+    }
+
+    const { error } = await supabase.auth.admin.updateUserById(data.user.id, {
+      password: new_password,
+    });
+
+    if (error) throw new BadRequestException(error.message);
+
+    return {
+      message: auth.passwordUpdated,
+    };
   }
 }

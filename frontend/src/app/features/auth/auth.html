@@ -1,0 +1,12 @@
+<div class="auth">
+  <section class="left-side">
+  </section>
+
+  <section class="right-side">
+    @if (showLogin()) {
+    <app-login (switchToRegister)="toggleView()" />
+    } @else {
+    <app-register (switchToLogin)="toggleView()" />
+    }
+  </section>
+</div>

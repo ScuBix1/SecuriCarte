@@ -37,4 +37,18 @@ export class AuthController {
       message: auth.connected,
     });
   }
+
+  @Post('forgot-password')
+  async forgotPassword(@Body('email') email: string) {
+    return this.authService.sendPasswordReset(email);
+  }
+
+  @Post('reset-password')
+  async resetPassword(
+    @Body() body: { access_token: string; new_password: string },
+  ) {
+    const { access_token, new_password } = body;
+
+    return this.authService.resetPassword(access_token, new_password);
+  }
 }
