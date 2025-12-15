@@ -6,7 +6,7 @@ import { Maps } from './features/maps/maps';
 
 export const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     component: Auth,
   },
   {

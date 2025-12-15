@@ -12,7 +12,7 @@ import * as errors from './messages/errors.json';
 export class JwtAuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest<AuthenticatedRequest>();
-    const token = req.cookies?.access_token;
+    const token = req.cookies['access_token'];
 
     if (!token) {
       throw new UnauthorizedException(errors.JWT_REQUIRED);

@@ -44,3 +44,6 @@ Thumbs.db
 
 #secret files
 *.env
+
+#proxy
+proxy.conf.json
