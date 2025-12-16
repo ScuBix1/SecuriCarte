@@ -54,8 +54,6 @@ export class ResetPassword {
       return;
     }
 
-    console.log(this.access_token);
-
     if (!this.access_token) {
       this.errorMessage.set('Token invalide.');
       return;

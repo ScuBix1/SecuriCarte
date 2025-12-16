@@ -28,7 +28,7 @@
               },
               "src/assets"
             ],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/styles.scss", "node_modules/maplibre-gl/dist/maplibre-gl.css"]
           },
           "configurations": {
             "production": {
@@ -63,6 +63,9 @@
             "development": {
               "buildTarget": "frontend:build:development"
             }
+          },
+          "options": {
+            "proxyConfig": "proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },

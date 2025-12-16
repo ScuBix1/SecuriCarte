@@ -25,7 +25,6 @@ export class ForgotPassword {
 
   async submit() {
     const { email } = this.forgotPasswordModel();
-    console.log(email);
     this.authService.forgotPassword(email).subscribe({
       next: () => {
         this.successMessage.set('Un mail a été envoyé !');

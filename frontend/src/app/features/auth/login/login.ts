@@ -47,7 +47,7 @@ export class Login {
 
     this.authService.login(this.loginModel().email, this.loginModel().password).subscribe({
       next: () => {
-        window.location.href = 'https://www.google.com/';
+        window.location.href = '/maps';
       },
       error: (err: unknown) => {
         this.errorMessage.set('Erreur de connexion. Vérifiez vos identifiants.');

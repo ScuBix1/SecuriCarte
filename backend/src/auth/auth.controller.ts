@@ -1,12 +1,34 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
-import { type Response } from 'express';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { type Request, type Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 import * as auth from './messages/auth.json';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  getMe(@Req() req: Request) {
+    const token = req.cookies['access_token'];
+    if (!token) return { loggedIn: false };
+
+    try {
+      const payload = jwt.verify(token, process.env.JWT_SECRET);
+      return { loggedIn: true, user: payload };
+    } catch {
+      return { loggedIn: false };
+    }
+  }
 
   @Post('register')
   async register(@Body() body: { email: string; password: string }) {
@@ -28,8 +50,8 @@ export class AuthController {
 
     res.cookie('access_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
       maxAge: 1000 * 60 * 60 * 24,
     });
 
