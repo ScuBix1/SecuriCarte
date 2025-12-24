@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface CreateIncidentDto {
   type: string;
+  title: string;
   description: string;
   location: {
     lat: number;

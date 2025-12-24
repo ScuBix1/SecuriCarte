@@ -9,6 +9,9 @@ export class CreateIncidentDto {
   @IsObject()
   location: { lat: number; lng: number };
 
+  @IsNotEmpty({ message: errors.INCIDENT_TITLE_REQUIRED })
+  title: string;
+
   @IsNotEmpty({ message: errors.INCIDENT_DESCRIPTION_REQUIRED })
   description: string;
 

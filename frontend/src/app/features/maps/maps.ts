@@ -56,6 +56,7 @@ export class Maps implements AfterViewInit {
 
   addMarker(incident: {
     type: string;
+    title: string;
     description: string;
     date: Date;
     location: string | { lat: number; lng: number };
@@ -81,8 +82,8 @@ export class Maps implements AfterViewInit {
       }[incident.type] ?? 'blue';
 
     const popup = new Popup({ closeOnClick: true }).setHTML(`
-    <strong>${incident.description.split(' - ')[0]}</strong><br />
-    ${incident.description.split(' - ')[1]}<br />
+    <strong>${incident.title}</strong><br />
+    ${incident.description}<br />
     <small>${new Date(incident.date).toLocaleDateString()}</small>
   `);
 
@@ -97,6 +98,7 @@ export class Maps implements AfterViewInit {
       incidents.forEach(
         (incident: {
           type: string;
+          title: string;
           description: string;
           date: Date;
           location: { lat: number; lng: number };
@@ -120,7 +122,7 @@ export class Maps implements AfterViewInit {
             }[incident.type] ?? 'blue';
 
           const popup = new Popup({ closeOnClick: true }).setHTML(`
-        <strong>${incident.description.split(' - ')[0]}</strong><br />
+        <strong>${incident.title}</strong><br />
         ${incident.description}<br />
         <small>${new Date(incident.date).toLocaleDateString()}</small>
       `);

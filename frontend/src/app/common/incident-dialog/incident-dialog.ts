@@ -38,7 +38,8 @@ export class IncidentDialog {
     this.incidentService
       .createIncident({
         type: this.model.type,
-        description: `${this.model.title} - ${this.model.description}`,
+        title: this.model.title,
+        description: this.model.description,
         location: {
           lat: this.data.lat,
           lng: this.data.lng,
