@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Map, Marker, Popup } from 'maplibre-gl';
+import maplibregl, { LngLatBounds, Map, Marker, Popup } from 'maplibre-gl';
 import { IncidentDialog } from '../../common/incident-dialog/incident-dialog';
 import { IncidentService } from '../../services/incident.service';
 
@@ -16,16 +16,21 @@ export class Maps implements AfterViewInit {
   constructor(private dialog: MatDialog, private incidentService: IncidentService) {}
 
   ngAfterViewInit(): void {
+    const center = new maplibregl.LngLat(4.8357, 45.762);
+    const radiusMeters = 6000;
+
+    const bounds = LngLatBounds.fromLngLat(center, radiusMeters);
+
     this.map = new Map({
       container: 'map',
       style: 'https://tiles.stadiamaps.com/styles/osm_bright.json',
-      center: [4.8357, 45.764],
+      center,
       zoom: 12,
-      maxBounds: [
-        [4.7, 45.65],
-        [4.95, 45.82],
-      ],
+      minZoom: 12,
+      maxBounds: bounds,
     });
+
+    console.log(this.map.getMaxBounds());
 
     this.loadMarkers();
 
