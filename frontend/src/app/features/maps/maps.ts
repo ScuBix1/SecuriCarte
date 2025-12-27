@@ -30,8 +30,6 @@ export class Maps implements AfterViewInit {
       maxBounds: bounds,
     });
 
-    console.log(this.map.getMaxBounds());
-
     this.loadMarkers();
 
     this.map.on('click', (e) => {
