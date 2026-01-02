@@ -9,11 +9,6 @@
   --common-wrapper: 30px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
 html {
   @include mat.theme((color: (primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,

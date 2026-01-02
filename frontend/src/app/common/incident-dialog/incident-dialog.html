@@ -1,27 +1,17 @@
-<h2 mat-dialog-title>Signaler une violence</h2>
+<div class="incident-dialog">
+  <h3>{{ incident.title }}</h3>
 
-<form (ngSubmit)="submit()" mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Type de violence</mat-label>
-    <mat-select [(ngModel)]="model.type" name="type" required>
-      <mat-option value="physique">Physique</mat-option>
-      <mat-option value="verbale">Verbale</mat-option>
-      <mat-option value="sexuelle">Sexuelle</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <p>{{ incident.description }}</p>
 
-  <mat-form-field>
-    <mat-label>Titre</mat-label>
-    <input matInput [(ngModel)]="model.title" name="title" required />
-  </mat-form-field>
+  <small>{{ incident.date }}</small>
 
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea matInput [(ngModel)]="model.description" name="description"></textarea>
-  </mat-form-field>
+  <div *ngIf="isOwner" class="actions">
+    <button mat-button color="primary" (click)="edit()">
+      Modifier
+    </button>
 
-  <mat-dialog-actions>
-    <button mat-button type="button" (click)="cancel()">Annuler</button>
-    <button mat-raised-button color="warn" type="submit">Soumettre</button>
-  </mat-dialog-actions>
-</form>
+    <button mat-button color="warn" (click)="delete()">
+      Supprimer
+    </button>
+  </div>
+</div>
