@@ -12,6 +12,9 @@ export class Incident {
   location: string;
 
   @Column()
+  title: string;
+
+  @Column()
   description: string;
 
   @Column()

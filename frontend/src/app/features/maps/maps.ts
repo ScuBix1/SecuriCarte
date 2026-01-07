@@ -1,7 +1,9 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Map, Marker, Popup } from 'maplibre-gl';
+import maplibregl, { LngLatBounds, Map, Marker } from 'maplibre-gl';
 import { IncidentDialog } from '../../common/incident-dialog/incident-dialog';
+import { IncidentModal } from '../../common/incident-modal/incident-modal';
+import { Incident } from '../../models/incident.model';
 import { IncidentService } from '../../services/incident.service';
 
 @Component({
@@ -16,15 +18,18 @@ export class Maps implements AfterViewInit {
   constructor(private dialog: MatDialog, private incidentService: IncidentService) {}
 
   ngAfterViewInit(): void {
+    const center = new maplibregl.LngLat(4.8357, 45.762);
+    const radiusMeters = 6000;
+
+    const bounds = LngLatBounds.fromLngLat(center, radiusMeters);
+
     this.map = new Map({
       container: 'map',
       style: 'https://tiles.stadiamaps.com/styles/osm_bright.json',
-      center: [4.8357, 45.764],
+      center,
       zoom: 12,
-      maxBounds: [
-        [4.7, 45.65],
-        [4.95, 45.82],
-      ],
+      minZoom: 12,
+      maxBounds: bounds,
     });
 
     this.loadMarkers();
@@ -32,7 +37,7 @@ export class Maps implements AfterViewInit {
     this.map.on('click', (e) => {
       if (!this.isReporting) return;
 
-      const dialogRef = this.dialog.open(IncidentDialog, {
+      const dialogRef = this.dialog.open(IncidentModal, {
         width: '420px',
         disableClose: true,
         data: {
@@ -54,12 +59,7 @@ export class Maps implements AfterViewInit {
     this.isReporting = true;
   }
 
-  addMarker(incident: {
-    type: string;
-    description: string;
-    date: Date;
-    location: string | { lat: number; lng: number };
-  }) {
+  addMarker(incident: Incident) {
     let loc: { lat: number; lng: number };
 
     if (typeof incident.location === 'string') {
@@ -80,57 +80,61 @@ export class Maps implements AfterViewInit {
         sexuelle: 'purple',
       }[incident.type] ?? 'blue';
 
-    const popup = new Popup({ closeOnClick: true }).setHTML(`
-    <strong>${incident.description.split(' - ')[0]}</strong><br />
-    ${incident.description.split(' - ')[1]}<br />
-    <small>${new Date(incident.date).toLocaleDateString()}</small>
-  `);
-
     new Marker({ color })
       .setLngLat([Number(loc.lng), Number(loc.lat)])
-      .setPopup(popup)
-      .addTo(this.map);
+      .addTo(this.map)
+      .getElement()
+      .addEventListener('click', () => {
+        this.openIncident(incident);
+      });
   }
 
   loadMarkers() {
     this.incidentService.getAllIncidents().subscribe((incidents: any) => {
-      incidents.forEach(
-        (incident: {
-          type: string;
-          description: string;
-          date: Date;
-          location: { lat: number; lng: number };
-        }) => {
-          let loc = incident.location;
-          if (typeof loc === 'string') {
-            try {
-              loc = JSON.parse(loc);
-            } catch {
-              return;
-            }
+      incidents.forEach((incident: Incident) => {
+        let loc: { lat: number; lng: number };
+
+        if (typeof incident.location === 'string') {
+          try {
+            loc = JSON.parse(incident.location) as { lat: number; lng: number };
+          } catch {
+            return;
           }
-
-          if (loc.lat == null || loc.lng == null) return;
-
-          const color =
-            {
-              physique: 'red',
-              verbale: 'orange',
-              sexuelle: 'purple',
-            }[incident.type] ?? 'blue';
-
-          const popup = new Popup({ closeOnClick: true }).setHTML(`
-        <strong>${incident.description.split(' - ')[0]}</strong><br />
-        ${incident.description}<br />
-        <small>${new Date(incident.date).toLocaleDateString()}</small>
-      `);
-
-          new Marker({ color })
-            .setLngLat([Number(loc.lng), Number(loc.lat)])
-            .setPopup(popup)
-            .addTo(this.map);
+        } else {
+          loc = incident.location;
         }
-      );
+
+        if (loc.lat == null || loc.lng == null) return;
+
+        const color =
+          {
+            physique: 'red',
+            verbale: 'orange',
+            sexuelle: 'purple',
+          }[incident.type] ?? 'blue';
+
+        new Marker({ color })
+          .setLngLat([Number(loc.lng), Number(loc.lat)])
+          .addTo(this.map)
+          .getElement()
+          .addEventListener('click', () => {
+            this.openIncident(incident);
+          });
+      });
+    });
+  }
+
+  openIncident(incident: Incident) {
+    const dialogRef = this.dialog.open(IncidentDialog, {
+      width: '420px',
+      data: {
+        incident,
+        isOwner: true, //condition pour vérifier l'utilisateur a ajouter
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: Incident) => {
+      if (!result) return;
     });
   }
 }

@@ -55,6 +55,7 @@ export class IncidentService {
     return incidents.map((incident) => ({
       type: incident.type,
       location: JSON.parse(incident.location),
+      title: incident.title,
       description: incident.description,
       date: incident.date,
       created_at: incident.created_at,

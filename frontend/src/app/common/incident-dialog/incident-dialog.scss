@@ -1,0 +1,19 @@
+.incident-dialog {
+  position: relative;
+  padding: 24px;
+
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
