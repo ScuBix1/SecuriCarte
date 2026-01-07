@@ -1,16 +1,18 @@
 <div class="incident-dialog">
+  <button matIconButton class="close" (click)="close()" aria-label="fermer la fenêtre de la violence"><i
+      class="fa-solid fa-xmark"></i></button>
   <h3>{{ incident.title }}</h3>
 
   <p>{{ incident.description }}</p>
 
-  <small>{{ incident.date }}</small>
+  <small>{{ date }}</small>
 
   <div *ngIf="isOwner" class="actions">
-    <button mat-button color="primary" (click)="edit()">
+    <button matButton="filled" (click)="edit()" aria-label="modifier votre violence">
       Modifier
     </button>
 
-    <button mat-button color="warn" (click)="delete()">
+    <button matButton="tonal" (click)="delete()" aria-label="supprimer votre violence">
       Supprimer
     </button>
   </div>

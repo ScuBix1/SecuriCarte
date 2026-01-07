@@ -1,5 +1,15 @@
-.incident-dialog-panel {
-  padding-left: 100px;
+.incident-dialog {
+  position: relative;
+  padding: 24px;
+
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .actions {

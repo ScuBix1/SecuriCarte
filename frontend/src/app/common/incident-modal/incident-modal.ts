@@ -10,7 +10,6 @@ import { IncidentService } from '../../services/incident.service';
 
 @Component({
   selector: 'app-incident-modal',
-  standalone: true,
   templateUrl: './incident-modal.html',
   imports: [
     FormsModule,

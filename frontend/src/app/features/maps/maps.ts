@@ -127,7 +127,6 @@ export class Maps implements AfterViewInit {
   openIncident(incident: Incident) {
     const dialogRef = this.dialog.open(IncidentDialog, {
       width: '420px',
-      panelClass: 'incident-dialog-panel',
       data: {
         incident,
         isOwner: true, //condition pour vérifier l'utilisateur a ajouter

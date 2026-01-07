@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import formatDateToDDMMYYYY from '../../helpers/formatDateToDDMMYYYY';
 import { Incident } from '../../models/incident.model';
 
 @Component({
   selector: 'app-incident-dialog',
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './incident-dialog.html',
+  styleUrl: './incident-dialog.scss',
 })
 export class IncidentDialog {
+  date: string;
   incident: Incident;
   isOwner: boolean;
 
@@ -19,6 +23,7 @@ export class IncidentDialog {
   ) {
     this.incident = data.incident;
     this.isOwner = data.isOwner;
+    this.date = formatDateToDDMMYYYY(data.incident.date);
   }
 
   edit() {
@@ -33,5 +38,9 @@ export class IncidentDialog {
       action: 'delete',
       incident: this.incident,
     });
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
