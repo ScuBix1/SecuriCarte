@@ -50,20 +50,3 @@
     background: purple;
   }
 }
-
-.popup-form {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-
-  input,
-  textarea,
-  select {
-    width: 100%;
-  }
-
-  .actions {
-    display: flex;
-    justify-content: space-between;
-  }
-}

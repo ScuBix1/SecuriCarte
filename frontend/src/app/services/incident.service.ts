@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Incident } from '../models/incident.model';
 
-export interface CreateIncidentDto {
+interface CreateIncidentDto {
   type: string;
   title: string;
   description: string;
@@ -11,6 +12,10 @@ export interface CreateIncidentDto {
     lng: number;
   };
   date: string;
+}
+
+interface DeleteIncidentDto {
+  id: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -25,5 +30,15 @@ export class IncidentService {
 
   getAllIncidents(): Observable<any[]> {
     return this.http.get<any[]>(`${this.API_URL}/incident/all`);
+  }
+
+  updateIncident(dto: Incident): Observable<any> {
+    return this.http.patch(`${this.API_URL}/incident`, dto);
+  }
+
+  deleteIncident(dto: DeleteIncidentDto): Observable<any> {
+    return this.http.delete(`${this.API_URL}/incident`, {
+      body: dto,
+    });
   }
 }

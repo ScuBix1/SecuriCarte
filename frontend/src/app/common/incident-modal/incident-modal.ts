@@ -11,6 +11,7 @@ import { IncidentService } from '../../services/incident.service';
 @Component({
   selector: 'app-incident-modal',
   templateUrl: './incident-modal.html',
+  styleUrl: './incident-modal.scss',
   imports: [
     FormsModule,
     MatDialogModule,
