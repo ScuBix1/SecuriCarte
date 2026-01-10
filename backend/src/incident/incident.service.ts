@@ -53,6 +53,7 @@ export class IncidentService {
     });
 
     return incidents.map((incident) => ({
+      id: incident.id,
       type: incident.type,
       location: JSON.parse(incident.location),
       title: incident.title,

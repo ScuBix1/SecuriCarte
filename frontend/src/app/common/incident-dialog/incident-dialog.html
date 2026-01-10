@@ -1,19 +1,37 @@
 <div class="incident-dialog">
   <button matIconButton class="close" (click)="close()" aria-label="fermer la fenetre de la violence"><i
       class="fa-solid fa-xmark"></i></button>
-  <h3>{{ incident.title }}</h3>
 
-  <p>{{ incident.description }}</p>
 
-  <small>{{ date }}</small>
+  <h3 *ngIf="!isEditing">{{ incident.title }}</h3>
+  <mat-form-field *ngIf="isEditing" class="editable-container">
+    <mat-label>Titre</mat-label>
+    <input matInput [(ngModel)]="editedTitle" />
+  </mat-form-field>
+
+  <p *ngIf="!isEditing">{{ incident.description }}</p>
+  <mat-form-field *ngIf="isEditing" class="editable-container">
+    <mat-label>Description</mat-label>
+    <textarea matInput *ngIf="isEditing" [(ngModel)]="editedDescription"></textarea>
+  </mat-form-field>
+
+  <div>
+    <small>{{ date }}</small>
+  </div>
 
   <div *ngIf="isOwner" class="actions">
-    <button matButton="filled" (click)="edit()" aria-label="modifier votre violence">
+    <button matButton="filled" *ngIf="!isEditing" (click)="startEdit()" aria-label="modifier votre violence">
       Modifier
     </button>
+    <button matButton="filled" *ngIf="isEditing" (click)="saveEdit()" aria-label="valider les modifications">
+      Valider
+    </button>
 
-    <button matButton="tonal" (click)="delete()" aria-label="supprimer votre violence">
+    <button matButton="tonal" *ngIf="!isEditing" (click)="delete()" aria-label="supprimer votre violence">
       Supprimer
+    </button>
+    <button matButton="tonal" *ngIf="isEditing" (click)="cancelEdit()" aria-label="annuler les modifications">
+      Annuler
     </button>
   </div>
 </div>

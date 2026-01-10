@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Incident } from '../models/incident.model';
+import { UpdateIncident } from '../models/incident.model';
 
 interface CreateIncidentDto {
   type: string;
@@ -32,7 +32,7 @@ export class IncidentService {
     return this.http.get<any[]>(`${this.API_URL}/incident/all`);
   }
 
-  updateIncident(dto: Incident): Observable<any> {
+  updateIncident(dto: UpdateIncident): Observable<any> {
     return this.http.patch(`${this.API_URL}/incident`, dto);
   }
 

@@ -19,6 +19,10 @@ export class UpdateIncidentDto {
 
   @IsOptional()
   @IsString({ message: errors.COMMON_FORMAT })
+  title?: string;
+
+  @IsOptional()
+  @IsString({ message: errors.COMMON_FORMAT })
   description?: string;
 
   @IsOptional()
