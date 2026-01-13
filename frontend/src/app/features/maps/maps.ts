@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import maplibregl, { LngLatBounds, Map, Marker } from 'maplibre-gl';
+import maplibregl, { LngLatBounds, Map as MapLibreMap, Marker } from 'maplibre-gl';
 import { IncidentDialog } from '../../common/incident-dialog/incident-dialog';
 import { IncidentModal } from '../../common/incident-modal/incident-modal';
 import { Incident } from '../../models/incident.model';
@@ -12,8 +12,9 @@ import { IncidentService } from '../../services/incident.service';
   styleUrl: './maps.scss',
 })
 export class Maps implements AfterViewInit {
-  map!: Map;
+  map!: MapLibreMap;
   isReporting = false;
+  markers = new Map<number, Marker>();
 
   constructor(private dialog: MatDialog, private incidentService: IncidentService) {}
 
@@ -23,7 +24,7 @@ export class Maps implements AfterViewInit {
 
     const bounds = LngLatBounds.fromLngLat(center, radiusMeters);
 
-    this.map = new Map({
+    this.map = new maplibregl.Map({
       container: 'map',
       style: 'https://tiles.stadiamaps.com/styles/osm_bright.json',
       center,
@@ -53,6 +54,10 @@ export class Maps implements AfterViewInit {
         this.isReporting = false;
       });
     });
+
+    this.incidentService.markerDeleted$.subscribe((id) => {
+      this.deleteMarkerById(id);
+    });
   }
 
   startReporting() {
@@ -80,13 +85,15 @@ export class Maps implements AfterViewInit {
         sexuelle: 'purple',
       }[incident.type] ?? 'blue';
 
-    new Marker({ color })
+    const marker = new Marker({ color })
       .setLngLat([Number(loc.lng), Number(loc.lat)])
-      .addTo(this.map)
-      .getElement()
-      .addEventListener('click', () => {
-        this.openIncident(incident);
-      });
+      .addTo(this.map);
+
+    marker.getElement().addEventListener('click', () => {
+      this.openIncident(incident);
+    });
+
+    this.markers.set(Number(incident.id), marker);
   }
 
   loadMarkers() {
@@ -113,15 +120,26 @@ export class Maps implements AfterViewInit {
             sexuelle: 'purple',
           }[incident.type] ?? 'blue';
 
-        new Marker({ color })
+        const marker = new Marker({ color })
           .setLngLat([Number(loc.lng), Number(loc.lat)])
-          .addTo(this.map)
-          .getElement()
-          .addEventListener('click', () => {
-            this.openIncident(incident);
-          });
+          .addTo(this.map);
+
+        marker.getElement().addEventListener('click', () => {
+          this.openIncident(incident);
+        });
+
+        this.markers.set(Number(incident.id), marker);
       });
     });
+  }
+
+  deleteMarkerById(id: number) {
+    const marker = this.markers.get(Number(id));
+
+    if (!marker) return;
+
+    marker.remove();
+    this.markers.delete(Number(id));
   }
 
   openIncident(incident: Incident) {

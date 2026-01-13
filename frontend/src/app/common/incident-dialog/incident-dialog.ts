@@ -68,9 +68,13 @@ export class IncidentDialog {
   }
 
   delete() {
-    this.dialogRef.close({
-      action: 'delete',
-      incident: this.incident,
+    const payload = {
+      id: parseInt(this.incident.id),
+    };
+
+    this.incidentService.deleteIncident(payload).subscribe((deleted) => {
+      this.incidentService.notifyMarkerDeleted(payload.id);
+      this.dialogRef.close();
     });
   }
 

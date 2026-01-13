@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { UpdateIncident } from '../models/incident.model';
 
 interface CreateIncidentDto {
@@ -21,6 +21,8 @@ interface DeleteIncidentDto {
 @Injectable({ providedIn: 'root' })
 export class IncidentService {
   private readonly API_URL = '/api';
+  private markerDeletedSource = new Subject<number>();
+  markerDeleted$ = this.markerDeletedSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -40,5 +42,9 @@ export class IncidentService {
     return this.http.delete(`${this.API_URL}/incident`, {
       body: dto,
     });
+  }
+
+  notifyMarkerDeleted(id: number) {
+    this.markerDeletedSource.next(id);
   }
 }
