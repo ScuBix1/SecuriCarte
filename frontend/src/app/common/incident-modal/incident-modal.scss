@@ -1,0 +1,27 @@
+.incident-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+  }
+}

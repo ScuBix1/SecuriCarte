@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { UpdateIncident } from '../models/incident.model';
 
-export interface CreateIncidentDto {
+interface CreateIncidentDto {
   type: string;
   title: string;
   description: string;
@@ -13,9 +14,15 @@ export interface CreateIncidentDto {
   date: string;
 }
 
+interface DeleteIncidentDto {
+  id: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class IncidentService {
   private readonly API_URL = '/api';
+  private markerDeletedSource = new Subject<number>();
+  markerDeleted$ = this.markerDeletedSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -25,5 +32,19 @@ export class IncidentService {
 
   getAllIncidents(): Observable<any[]> {
     return this.http.get<any[]>(`${this.API_URL}/incident/all`);
+  }
+
+  updateIncident(dto: UpdateIncident): Observable<any> {
+    return this.http.patch(`${this.API_URL}/incident`, dto);
+  }
+
+  deleteIncident(dto: DeleteIncidentDto): Observable<any> {
+    return this.http.delete(`${this.API_URL}/incident`, {
+      body: dto,
+    });
+  }
+
+  notifyMarkerDeleted(id: number) {
+    this.markerDeletedSource.next(id);
   }
 }
