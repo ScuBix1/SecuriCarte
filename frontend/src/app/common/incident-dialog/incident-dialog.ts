@@ -61,8 +61,13 @@ export class IncidentDialog {
     };
 
     this.incidentService.updateIncident(payload).subscribe((updated) => {
-      this.incident.title = updated.title;
-      this.incident.description = updated.description;
+      if (updated.title) {
+        this.incident.title = updated.title;
+      }
+      if (updated.description) {
+        this.incident.description = updated.description;
+      }
+
       this.isEditing = false;
     });
   }

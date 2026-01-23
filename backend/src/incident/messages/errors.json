@@ -1,11 +1,17 @@
 {
+  "INCIDENT_NOT_FOUND": {
+    "code": "INCIDENT_NOT_FOUND",
+    "message": "Incident introuvable"
+  },
+  "INCIDENT_FORBIDDEN": {
+    "code": "INCIDENT_FORBIDDEN",
+    "message": "Vous n'avez pas la permission de modifier cet incident"
+  },
   "INCIDENT_TYPE_REQUIRED": "Le type d'incident est requis",
   "INCIDENT_LOCATION_REQUIRED": "La localisation est requise",
   "INCIDENT_TITLE_REQUIRED": "Le titre est requis",
   "INCIDENT_DESCRIPTION_REQUIRED": "La description est requise",
   "INCIDENT_DATE_REQUIRED": "La date est requise",
-  "INCIDENT_NOT_FOUND": "Incident introuvable",
-  "INCIDENT_FORBIDDEN": "Vous n'avez pas la permission de modifier cet incident",
   "DATE_FORMAT": "La date n'est pas au bon format",
   "COMMON_FORMAT": "Ce n'est pas le bon format",
   "REQUIRED": "Ce champ est requis"
