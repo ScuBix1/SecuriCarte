@@ -10,9 +10,11 @@
     }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "/polyfills-(.*).js", "dest": "/polyfills-$1.js" },
+    { "src": "/main-(.*).js", "dest": "/main-$1.js" },
+    { "src": "/styles-(.*).css", "dest": "/styles-$1.css" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
