@@ -45,7 +45,7 @@ export class AuthController {
     const token = jwt.sign(
       { id: session.user.id, email: body.email },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' },
+      { expiresIn: '24h' },
     );
 
     res.cookie('access_token', token, {
