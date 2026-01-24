@@ -10,7 +10,7 @@ if (!target) {
   throw new Error('API_URL est non déclarée !');
 }
 
-const proxyPath = path.resolve(__dirname, '../src/proxy.conf.json');
+const proxyPath = path.resolve(__dirname, '../proxy.conf.json');
 
 const proxyConfig: Record<string, unknown> = {
   '/api': {
