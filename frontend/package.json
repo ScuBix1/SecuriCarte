@@ -6,7 +6,7 @@
     "start": "ng serve",
     "generate:proxy": "ts-node scripts/generate-proxy.ts",
     "start:local": "ng serve --host 0.0.0.0 --port 4200",
-    "build": "ng build",
+    "build": "npm run generate:proxy; ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
