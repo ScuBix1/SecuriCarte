@@ -12,7 +12,7 @@ import { SubscriptionModule } from './subscription/subscription.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: process.env.SUPABASE_DB_URL,
       autoLoadEntities: true,
       synchronize: false,
     }),
