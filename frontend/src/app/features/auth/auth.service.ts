@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = '/api'; // à mettre à jour
+  private baseUrl = 'https://securicarte.onrender.com'; // à mettre à jour
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string) {
