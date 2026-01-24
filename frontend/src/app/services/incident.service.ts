@@ -20,7 +20,7 @@ interface DeleteIncidentDto {
 
 @Injectable({ providedIn: 'root' })
 export class IncidentService {
-  private readonly API_URL = '/api';
+  private readonly API_URL = 'https://securicarte.onrender.com';
   private markerDeletedSource = new Subject<number>();
   markerDeleted$ = this.markerDeletedSource.asObservable();
 
