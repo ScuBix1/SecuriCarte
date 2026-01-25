@@ -18,7 +18,7 @@ export class AuthService {
     });
     if (error) throw new BadRequestException(error.message);
 
-    return data.session;
+    return data.user;
   }
 
   async getUser(accessToken: string) {

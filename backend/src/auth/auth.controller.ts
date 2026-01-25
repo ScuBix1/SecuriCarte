@@ -40,10 +40,10 @@ export class AuthController {
     @Body() body: { email: string; password: string },
     @Res() res: Response,
   ) {
-    const session = await this.authService.login(body.email, body.password);
+    const user = await this.authService.login(body.email, body.password);
 
     const token = jwt.sign(
-      { id: session.user.id, email: body.email },
+      { id: user.id, email: body.email },
       process.env.JWT_SECRET,
       { expiresIn: '24h' },
     );
