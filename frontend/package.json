@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "generate:proxy": "ts-node scripts/generate-proxy.ts",
-    "prebuild": "npm run generate:proxy",
-    "build": "ng build",
+    "prebuild": "ts-node scripts/generate-environment.ts",
+    "build": "npm run prebuild && ng build",
     "start:local": "ng serve --host 0.0.0.0 --port 4200",
     "start": "ng serve",
     "watch": "ng build --watch --configuration development",
