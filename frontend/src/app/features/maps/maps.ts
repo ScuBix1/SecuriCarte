@@ -18,6 +18,14 @@ export class Maps implements AfterViewInit {
 
   constructor(private dialog: MatDialog, private incidentService: IncidentService) {}
 
+  private getMapStyle(): string {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    return isDark
+      ? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
+      : 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
+  }
+
   ngAfterViewInit(): void {
     const center = new maplibregl.LngLat(4.8357, 45.762);
     const radiusMeters = 6000;
@@ -26,7 +34,7 @@ export class Maps implements AfterViewInit {
 
     this.map = new maplibregl.Map({
       container: 'map',
-      style: 'https://tiles.stadiamaps.com/styles/osm_bright.json',
+      style: this.getMapStyle(),
       center,
       zoom: 12,
       minZoom: 12,
