@@ -5,6 +5,7 @@ export type Incident = {
   description: string;
   date: Date;
   location: string | { lat: number; lng: number };
+  user_id: string;
 };
 
 export type UpdateIncident = {

@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 import { Actions } from '../actions/actions';
-import { AuthService } from '../auth.service';
 
 export interface LoginFormModel {
   email: string;

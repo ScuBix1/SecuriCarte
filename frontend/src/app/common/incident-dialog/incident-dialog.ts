@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule, MatLabel } from '@angular/material/input';
 import formatDateToDDMMYYYY from '../../helpers/formatDateToDDMMYYYY';
 import { Incident, UpdateIncident } from '../../models/incident.model';
+import { AuthService } from '../../services/auth.service';
 import { IncidentService } from '../../services/incident.service';
 
 @Component({
@@ -17,23 +18,28 @@ import { IncidentService } from '../../services/incident.service';
 export class IncidentDialog {
   date: string;
   incident: Incident;
-  isOwner: boolean;
+  isOwner: boolean = false;
   isEditing: boolean;
   editedTitle: string;
   editedDescription: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    data: { incident: Incident; isOwner: boolean },
+    data: { incident: Incident; user_id: string },
     private dialogRef: MatDialogRef<IncidentDialog>,
-    private incidentService: IncidentService
+    private incidentService: IncidentService,
+    private authService: AuthService
   ) {
     this.incident = data.incident;
-    this.isOwner = data.isOwner;
     this.date = formatDateToDDMMYYYY(data.incident.date);
     this.isEditing = false;
     this.editedTitle = '';
     this.editedDescription = '';
+    this.authService.getCurrentUser().subscribe((response) => {
+      if (response.loggedIn && response.user?.id) {
+        this.isOwner = response.user.id === data.incident.user_id;
+      }
+    });
   }
 
   startEdit() {

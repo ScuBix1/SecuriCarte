@@ -60,6 +60,7 @@ export class IncidentService {
       description: incident.description,
       date: incident.date,
       created_at: incident.created_at,
+      user_id: incident.user_id,
     }));
   }
 
