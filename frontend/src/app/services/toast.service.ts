@@ -8,10 +8,10 @@ export class ToastService {
   constructor(private hotToast: HotToastService) {}
 
   success(message: string) {
-    this.hotToast.success(message);
+    this.hotToast.success(message, { position: 'top-center' });
   }
 
   error(message: string) {
-    this.hotToast.error(message);
+    this.hotToast.error(message, { position: 'top-center' });
   }
 }

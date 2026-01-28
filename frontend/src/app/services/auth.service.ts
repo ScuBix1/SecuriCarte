@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../../../environments/environment';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { CurrentUserType } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,5 +53,11 @@ export class AuthService {
         withCredentials: true,
       }
     );
+  }
+
+  getCurrentUser(): Observable<CurrentUserType> {
+    return this.http.get<CurrentUserType>(`${this.baseUrl}/auth/me`, {
+      withCredentials: true,
+    });
   }
 }

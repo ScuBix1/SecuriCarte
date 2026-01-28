@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const apiUrl = process.env['API_URL'];
-console.log(apiUrl);
 
 if (!apiUrl) {
   console.error('❌ API_URL est manquant!');
