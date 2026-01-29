@@ -1,4 +1,9 @@
 <div class="auth">
+  @if (isLoading()) {
+  <div class="loading">
+    <mat-progress-spinner mode="indeterminate" class="spinner"></mat-progress-spinner>
+  </div>
+  }
   <section class="left-side">
   </section>
 

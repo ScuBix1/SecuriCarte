@@ -14,4 +14,8 @@ export class ToastService {
   error(message: string) {
     this.hotToast.error(message, { position: 'top-center' });
   }
+
+  loading(message: string = 'Chargement...') {
+    return this.hotToast.loading(message, { position: 'top-center' });
+  }
 }
