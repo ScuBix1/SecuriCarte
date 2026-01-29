@@ -33,7 +33,6 @@ export interface LoginFormModel {
 })
 export class Login {
   @Output() switchToRegister = new EventEmitter<void>();
-  isLoading: boolean = true;
   hide: boolean = true;
   loginModel = signal<{ email: string; password: string }>({ email: '', password: '' });
   errorMessage = signal<string | null>(null);
@@ -52,7 +51,7 @@ export class Login {
 
     this.authService
       .login(this.loginModel().email, this.loginModel().password)
-      .pipe(finalize(() => this.authUi.isLoading.set(true)))
+      .pipe(finalize(() => this.authUi.isLoading.set(false)))
       .subscribe({
         next: () => {
           window.location.href = '/maps';
