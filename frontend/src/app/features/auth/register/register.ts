@@ -5,8 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { Actions } from '../actions/actions';
+import { AuthUiService } from '../auth-loading';
 
 @Component({
   selector: 'app-register',
@@ -42,7 +44,7 @@ export class Register {
     return email.length > 0 && password.length > 0 && confirmPassword === password;
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private authUi: AuthUiService) {}
 
   submit() {
     if (!this.isFormValid()) {
@@ -52,16 +54,21 @@ export class Register {
 
     const { email, password } = this.registerModel();
 
-    this.authService.register(email, password).subscribe({
-      next: () => {
-        this.successMessage.set('Veuillez vérifier votre compte pour vous connecter !');
-        this.errorMessage.set(null);
-      },
-      error: (err: unknown) => {
-        console.error(err);
-        this.errorMessage.set("Erreur lors de l'inscription.");
-        this.successMessage.set(null);
-      },
-    });
+    this.authUi.isLoading.set(true);
+
+    this.authService
+      .register(email, password)
+      .pipe(finalize(() => this.authUi.isLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.successMessage.set('Veuillez vérifier votre compte pour vous connecter !');
+          this.errorMessage.set(null);
+        },
+        error: (err: unknown) => {
+          console.error(err);
+          this.errorMessage.set("Erreur lors de l'inscription.");
+          this.successMessage.set(null);
+        },
+      });
   }
 }

@@ -5,9 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { Actions } from '../actions/actions';
+import { AuthUiService } from '../auth-loading';
 
 export interface LoginFormModel {
   email: string;
@@ -22,6 +24,7 @@ export interface LoginFormModel {
     FormsModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     CommonModule,
     Actions,
   ],
@@ -30,8 +33,8 @@ export interface LoginFormModel {
 })
 export class Login {
   @Output() switchToRegister = new EventEmitter<void>();
-
-  hide = true;
+  isLoading: boolean = true;
+  hide: boolean = true;
   loginModel = signal<{ email: string; password: string }>({ email: '', password: '' });
   errorMessage = signal<string | null>(null);
 
@@ -40,19 +43,24 @@ export class Login {
     return model.email.length > 0 && model.password.length > 0;
   });
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private authUi: AuthUiService) {}
 
   submit() {
     if (!this.isFormValid()) return;
 
-    this.authService.login(this.loginModel().email, this.loginModel().password).subscribe({
-      next: () => {
-        window.location.href = '/maps';
-      },
-      error: (err: unknown) => {
-        this.errorMessage.set('Erreur de connexion. Vérifiez vos identifiants.');
-        console.error(err);
-      },
-    });
+    this.authUi.isLoading.set(true);
+
+    this.authService
+      .login(this.loginModel().email, this.loginModel().password)
+      .pipe(finalize(() => this.authUi.isLoading.set(true)))
+      .subscribe({
+        next: () => {
+          window.location.href = '/maps';
+        },
+        error: (err: unknown) => {
+          this.errorMessage.set('Erreur de connexion. Vérifiez vos identifiants.');
+          console.error(err);
+        },
+      });
   }
 }
