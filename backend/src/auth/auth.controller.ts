@@ -1,22 +1,12 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { type Request, type Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './jwt-auth.guard';
 import * as auth from './messages/auth.json';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@Req() req: Request) {
     const token = req.cookies['access_token'];

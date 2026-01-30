@@ -1,10 +1,10 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import maplibregl, { LngLatBounds, Map as MapLibreMap, Marker } from 'maplibre-gl';
+import { Incident } from '../../../models/incident.model';
+import { IncidentService } from '../../../services/incident.service';
 import { IncidentDialog } from '../../common/incident-dialog/incident-dialog';
 import { IncidentModal } from '../../common/incident-modal/incident-modal';
-import { Incident } from '../../models/incident.model';
-import { IncidentService } from '../../services/incident.service';
 
 @Component({
   selector: 'app-maps',

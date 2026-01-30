@@ -1,6 +1,6 @@
 export type CurrentUserType = {
   loggedIn: boolean;
-  user: {
+  user?: {
     id: string;
     email?: string;
   };

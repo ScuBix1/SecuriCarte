@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule, MatLabel } from '@angular/material/input';
-import formatDateToDDMMYYYY from '../../helpers/formatDateToDDMMYYYY';
-import { Incident, UpdateIncident } from '../../models/incident.model';
-import { AuthService } from '../../services/auth.service';
-import { IncidentService } from '../../services/incident.service';
+import formatDateToDDMMYYYY from '../../../helpers/formatDateToDDMMYYYY';
+import { Incident, UpdateIncident } from '../../../models/incident.model';
+import { AuthService } from '../../../services/auth.service';
+import { IncidentService } from '../../../services/incident.service';
 
 @Component({
   selector: 'app-incident-dialog',
@@ -36,6 +36,7 @@ export class IncidentDialog {
     this.editedTitle = '';
     this.editedDescription = '';
     this.authService.getCurrentUser().subscribe((response) => {
+      console.log(response);
       if (response.loggedIn && response.user?.id) {
         this.isOwner = response.user.id === data.incident.user_id;
       }

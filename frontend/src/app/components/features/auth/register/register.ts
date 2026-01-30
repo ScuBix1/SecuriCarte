@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { finalize } from 'rxjs';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../../services/auth.service';
 import { Actions } from '../actions/actions';
 import { AuthUiService } from '../auth-loading';
 
