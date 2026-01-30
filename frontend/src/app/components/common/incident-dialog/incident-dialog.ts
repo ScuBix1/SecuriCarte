@@ -36,7 +36,6 @@ export class IncidentDialog {
     this.editedTitle = '';
     this.editedDescription = '';
     this.authService.getCurrentUser().subscribe((response) => {
-      console.log(response);
       if (response.loggedIn && response.user?.id) {
         this.isOwner = response.user.id === data.incident.user_id;
       }
