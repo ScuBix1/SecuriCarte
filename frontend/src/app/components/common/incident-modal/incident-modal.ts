@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { IncidentService } from '../../services/incident.service';
+import { IncidentService } from '../../../services/incident.service';
 
 @Component({
   selector: 'app-incident-modal',

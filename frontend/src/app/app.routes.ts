@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
-import { Auth } from './features/auth/auth';
-import { ForgotPassword } from './features/auth/forgot-password/forgot-password';
-import { ResetPassword } from './features/auth/reset-password/reset-password';
-import { Maps } from './features/maps/maps';
+import { Auth } from './components/features/auth/auth';
+import { ForgotPassword } from './components/features/auth/forgot-password/forgot-password';
+import { ResetPassword } from './components/features/auth/reset-password/reset-password';
+import { Maps } from './components/features/maps/maps';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,6 @@ export const routes: Routes = [
   {
     path: 'maps',
     component: Maps,
+    canActivate: [authGuard],
   },
 ];
