@@ -9,22 +9,19 @@
   left: 0;
   width: 100%;
   background: #1e1e1e;
-  padding: 10px;
+  padding-inline: 10px;
+  padding-block: 20px;
   z-index: 10;
-
-  button {
-    background: crimson;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .legend {
   position: absolute;
   right: 10px;
-  top: 70px;
+  top: 100px;
   background: white;
   padding: 10px;
   z-index: 10;

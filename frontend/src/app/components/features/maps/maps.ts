@@ -1,7 +1,9 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import maplibregl, { LngLatBounds, Map as MapLibreMap, Marker } from 'maplibre-gl';
 import { Incident } from '../../../models/incident.model';
+import { AuthService } from '../../../services/auth.service';
 import { IncidentService } from '../../../services/incident.service';
 import { IncidentDialog } from '../../common/incident-dialog/incident-dialog';
 import { IncidentModal } from '../../common/incident-modal/incident-modal';
@@ -10,13 +12,18 @@ import { IncidentModal } from '../../common/incident-modal/incident-modal';
   selector: 'app-maps',
   templateUrl: './maps.html',
   styleUrl: './maps.scss',
+  imports: [MatButton],
 })
 export class Maps implements AfterViewInit {
   map!: MapLibreMap;
   isReporting = false;
   markers = new Map<number, Marker>();
 
-  constructor(private dialog: MatDialog, private incidentService: IncidentService) {}
+  constructor(
+    private dialog: MatDialog,
+    private incidentService: IncidentService,
+    private authService: AuthService
+  ) {}
 
   private getMapStyle(): string {
     const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -162,5 +169,9 @@ export class Maps implements AfterViewInit {
     dialogRef.afterClosed().subscribe((result: Incident) => {
       if (!result) return;
     });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

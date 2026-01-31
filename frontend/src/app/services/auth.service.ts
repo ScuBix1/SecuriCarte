@@ -60,4 +60,10 @@ export class AuthService {
       withCredentials: true,
     });
   }
+
+  logout() {
+    this.http.post(`${this.baseUrl}/auth/logout`, {}, { withCredentials: true }).subscribe(() => {
+      this.router.navigate(['/']);
+    });
+  }
 }
