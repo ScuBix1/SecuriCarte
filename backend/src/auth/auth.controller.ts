@@ -63,4 +63,17 @@ export class AuthController {
 
     return this.authService.resetPassword(access_token, new_password);
   }
+
+  @Post('logout')
+  logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('access_token', {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === 'prod' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'prod',
+    });
+
+    res.send({
+      message: auth.logOut,
+    });
+  }
 }
