@@ -12,10 +12,10 @@ import { Register } from './register/register';
   styleUrl: './auth.scss',
 })
 export class Auth {
-  showLogin = signal(true);
-  isLoading: WritableSignal<boolean>;
+  public showLogin = signal(true);
+  public isLoading: WritableSignal<boolean>;
 
-  constructor(authUi: AuthUiService) {
+  public constructor(authUi: AuthUiService) {
     this.isLoading = authUi.isLoading;
     effect(() => {
       if (this.isLoading()) {
@@ -26,7 +26,7 @@ export class Auth {
     });
   }
 
-  toggleView() {
+  public toggleView() {
     this.showLogin.update((view) => !view);
   }
 }

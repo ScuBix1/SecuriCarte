@@ -33,18 +33,18 @@ export interface LoginFormModel {
 })
 export class Login {
   @Output() switchToRegister = new EventEmitter<void>();
-  hide: boolean = true;
-  loginModel = signal<{ email: string; password: string }>({ email: '', password: '' });
-  errorMessage = signal<string | null>(null);
+  public hide: boolean = true;
+  public loginModel = signal<{ email: string; password: string }>({ email: '', password: '' });
+  public errorMessage = signal<string | null>(null);
 
-  isFormValid = computed(() => {
+  public isFormValid = computed(() => {
     const model = this.loginModel();
     return model.email.length > 0 && model.password.length > 0;
   });
 
-  constructor(private authService: AuthService, private authUi: AuthUiService) {}
+  public constructor(private authService: AuthService, private authUi: AuthUiService) {}
 
-  submit() {
+  public submit() {
     if (!this.isFormValid()) return;
 
     this.authUi.isLoading.set(true);

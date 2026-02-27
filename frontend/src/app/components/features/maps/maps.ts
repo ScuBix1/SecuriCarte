@@ -33,7 +33,7 @@ export class Maps implements AfterViewInit {
       : 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     const center = new maplibregl.LngLat(4.8357, 45.762);
     const radiusMeters = 6000;
 
@@ -75,11 +75,11 @@ export class Maps implements AfterViewInit {
     });
   }
 
-  startReporting() {
+  public startReporting() {
     this.isReporting = true;
   }
 
-  addMarker(incident: Incident) {
+  public addMarker(incident: Incident) {
     let loc: { lat: number; lng: number };
 
     if (typeof incident.location === 'string') {
@@ -111,7 +111,7 @@ export class Maps implements AfterViewInit {
     this.markers.set(Number(incident.id), marker);
   }
 
-  loadMarkers() {
+  public loadMarkers() {
     this.incidentService.getAllIncidents().subscribe((incidents: any) => {
       incidents.forEach((incident: Incident) => {
         let loc: { lat: number; lng: number };
@@ -148,7 +148,7 @@ export class Maps implements AfterViewInit {
     });
   }
 
-  deleteMarkerById(id: number) {
+  public deleteMarkerById(id: number) {
     const marker = this.markers.get(Number(id));
 
     if (!marker) return;
@@ -157,7 +157,7 @@ export class Maps implements AfterViewInit {
     this.markers.delete(Number(id));
   }
 
-  openIncident(incident: Incident) {
+  public openIncident(incident: Incident) {
     const dialogRef = this.dialog.open(IncidentDialog, {
       width: '420px',
       data: {
@@ -171,7 +171,7 @@ export class Maps implements AfterViewInit {
     });
   }
 
-  logout() {
+  public logout() {
     this.authService.logout();
   }
 }

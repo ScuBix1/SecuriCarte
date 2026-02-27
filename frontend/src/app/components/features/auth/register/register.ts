@@ -27,26 +27,26 @@ import { AuthUiService } from '../auth-loading';
 export class Register {
   @Output() switchToLogin = new EventEmitter<void>();
 
-  hide = true;
-  hideConfirm = true;
+  public hide = true;
+  public hideConfirm = true;
 
-  registerModel = signal<{ email: string; password: string; confirmPassword: string }>({
+  public registerModel = signal<{ email: string; password: string; confirmPassword: string }>({
     email: '',
     password: '',
     confirmPassword: '',
   });
 
-  errorMessage = signal<string | null>(null);
-  successMessage = signal<string | null>(null);
+  public errorMessage = signal<string | null>(null);
+  public successMessage = signal<string | null>(null);
 
-  isFormValid = computed(() => {
+  public isFormValid = computed(() => {
     const { email, password, confirmPassword } = this.registerModel();
     return email.length > 0 && password.length > 0 && confirmPassword === password;
   });
 
-  constructor(private authService: AuthService, private authUi: AuthUiService) {}
+  public constructor(private authService: AuthService, private authUi: AuthUiService) {}
 
-  submit() {
+  public submit() {
     if (!this.isFormValid()) {
       this.errorMessage.set('Les mots de passe ne correspondent pas ou des champs sont vides.');
       return;
