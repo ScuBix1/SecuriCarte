@@ -33,7 +33,7 @@ export class ResetPassword {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.access_token = this.route.snapshot.queryParamMap.get('access_token');
 
     if (!this.access_token && window.location.hash) {
@@ -46,7 +46,7 @@ export class ResetPassword {
     }
   }
 
-  async submit() {
+  public async submit() {
     const { password, confirmPassword } = this.resetModel();
 
     if (password !== confirmPassword) {

@@ -5,17 +5,17 @@ import { HotToastService } from '@ngxpert/hot-toast';
   providedIn: 'root',
 })
 export class ToastService {
-  constructor(private hotToast: HotToastService) {}
+  public constructor(private hotToast: HotToastService) {}
 
-  success(message: string) {
+  public success(message: string) {
     this.hotToast.success(message, { position: 'top-center' });
   }
 
-  error(message: string) {
+  public error(message: string) {
     this.hotToast.error(message, { position: 'top-center' });
   }
 
-  loading(message: string = 'Chargement...') {
+  public loading(message: string = 'Chargement...') {
     return this.hotToast.loading(message, { position: 'top-center' });
   }
 }

@@ -23,36 +23,36 @@ interface DeleteIncidentDto {
 export class IncidentService {
   private readonly API_URL = environment.apiUrl;
   private markerDeletedSource = new Subject<number>();
-  markerDeleted$ = this.markerDeletedSource.asObservable();
+  public markerDeleted$ = this.markerDeletedSource.asObservable();
 
-  constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient) {}
 
-  createIncident(dto: CreateIncidentDto): Observable<CreateIncidentDto> {
+  public createIncident(dto: CreateIncidentDto): Observable<CreateIncidentDto> {
     return this.http.post<CreateIncidentDto>(`${this.API_URL}/incident`, dto, {
       withCredentials: true,
     });
   }
 
-  getAllIncidents(): Observable<Incident[]> {
+  public getAllIncidents(): Observable<Incident[]> {
     return this.http.get<Incident[]>(`${this.API_URL}/incident/all`, {
       withCredentials: true,
     });
   }
 
-  updateIncident(dto: UpdateIncident): Observable<UpdateIncident> {
+  public updateIncident(dto: UpdateIncident): Observable<UpdateIncident> {
     return this.http.patch<UpdateIncident>(`${this.API_URL}/incident`, dto, {
       withCredentials: true,
     });
   }
 
-  deleteIncident(dto: DeleteIncidentDto): Observable<DeleteIncidentDto> {
+  public deleteIncident(dto: DeleteIncidentDto): Observable<DeleteIncidentDto> {
     return this.http.delete<DeleteIncidentDto>(`${this.API_URL}/incident`, {
       body: dto,
       withCredentials: true,
     });
   }
 
-  notifyMarkerDeleted(id: number) {
+  public notifyMarkerDeleted(id: number) {
     this.markerDeletedSource.next(id);
   }
 }

@@ -13,17 +13,17 @@ import { AuthService } from '../../../../services/auth.service';
   styleUrl: './forgot-password.scss',
 })
 export class ForgotPassword {
-  errorMessage = signal<string | null>(null);
-  successMessage = signal<string | null>(null);
-  email = signal('');
+  public errorMessage = signal<string | null>(null);
+  public successMessage = signal<string | null>(null);
+  public email = signal('');
 
-  forgotPasswordModel = signal<{ email: string }>({
+  public forgotPasswordModel = signal<{ email: string }>({
     email: '',
   });
 
-  constructor(private authService: AuthService) {}
+  public constructor(private authService: AuthService) {}
 
-  async submit() {
+  public async submit() {
     const { email } = this.forgotPasswordModel();
     this.authService.forgotPassword(email).subscribe({
       next: () => {

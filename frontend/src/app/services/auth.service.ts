@@ -12,7 +12,7 @@ export class AuthService {
   private baseUrl = environment.apiUrl;
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(email: string, password: string) {
+  public login(email: string, password: string) {
     return this.http.post(
       `${this.baseUrl}/auth/login`,
       { email, password },
@@ -22,7 +22,7 @@ export class AuthService {
     );
   }
 
-  register(email: string, password: string) {
+  public register(email: string, password: string) {
     return this.http.post(
       `${this.baseUrl}/auth/register`,
       { email, password },
@@ -32,7 +32,7 @@ export class AuthService {
     );
   }
 
-  forgotPassword(email: string) {
+  public forgotPassword(email: string) {
     return this.http.post(
       `${this.baseUrl}/auth/forgot-password`,
       { email },
@@ -42,7 +42,7 @@ export class AuthService {
     );
   }
 
-  resetPassword(access_token: string, new_password: string) {
+  public resetPassword(access_token: string, new_password: string) {
     return this.http.post(
       `${this.baseUrl}/auth/reset-password`,
       {
@@ -55,13 +55,13 @@ export class AuthService {
     );
   }
 
-  getCurrentUser(): Observable<CurrentUserType> {
+  public getCurrentUser(): Observable<CurrentUserType> {
     return this.http.get<CurrentUserType>(`${this.baseUrl}/auth/me`, {
       withCredentials: true,
     });
   }
 
-  logout() {
+  public logout(): void {
     this.http.post(`${this.baseUrl}/auth/logout`, {}, { withCredentials: true }).subscribe(() => {
       this.router.navigate(['/']);
     });
